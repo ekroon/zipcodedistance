@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<SOAP-ENV:Envelope xmlns:SOAP-ENV="http://schemas.xmlsoap.org/soap/envelope/" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+   <SOAP-ENV:Body>
+      <SOAP-ENV:Fault>
+         <faultcode>SOAP-ENV:Server</faultcode>
+         <faultstring>Start or destination postcode does not exist, or is a Postbus</faultstring>
+         <faultactor/>
+         <detail>
+            <nu7845:errorcode xmlns:nu7845="http://www.webservices.nl/soap/">Server.Data.NotFound</nu7845:errorcode>
+         </detail>
+      </SOAP-ENV:Fault>
+   </SOAP-ENV:Body>
+</SOAP-ENV:Envelope>

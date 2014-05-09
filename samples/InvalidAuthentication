@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<SOAP-ENV:Envelope xmlns:SOAP-ENV="http://schemas.xmlsoap.org/soap/envelope/" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+   <SOAP-ENV:Body>
+      <SOAP-ENV:Fault>
+         <faultcode>SOAP-ENV:Client</faultcode>
+         <faultstring>Invalid authentication (You are not logged in)</faultstring>
+         <faultactor/>
+         <detail>
+            <nu9664:errorcode xmlns:nu9664="http://www.webservices.nl/soap/">Client.Authentication</nu9664:errorcode>
+         </detail>
+      </SOAP-ENV:Fault>
+   </SOAP-ENV:Body>
+</SOAP-ENV:Envelope>
