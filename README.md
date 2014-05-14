@@ -30,3 +30,5 @@ Copyright © 2014 ekroon
 
 Distributed under the Eclipse Public License either version 1.0 or (at
 your option) any later version.
+
+[![Build Status](https://travis-ci.org/ekroon/zipcodedistance.svg?branch=master)](https://travis-ci.org/ekroon/zipcodedistance)
