@@ -1,3 +1,2 @@
-@echo off	
-echo %1
+@echo off
 set CP=%1;%CP%
