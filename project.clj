@@ -11,4 +11,5 @@
                  [http-kit "2.1.16"]]
   :main ^:skip-aot zipcodedistance.core
   :target-path "target/%s"
-  :profiles {:uberjar {:aot :all}})
+  :profiles {:dev {:source-paths ["src" "test" "resources" "samples"]}
+             :uberjar {:aot :all}})

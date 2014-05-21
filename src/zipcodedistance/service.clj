@@ -1,6 +1,7 @@
 (ns zipcodedistance.service
   "Short package description."
   (:require [clojure.data.xml :as xml]
+            [clojure.string :refer [upper-case]]
             [org.httpkit.client :as http])
   (:import [org.httpkit.client TimeoutException]))
 
@@ -35,19 +36,34 @@
 
 (declare check-response)
 
+(defn post [& params]
+  (apply http/post params))
+
+(def ^:private zipcode-regex #"^([1-9]{1}[0-9]{3}) ?([A-Z]{2})$")
+(defn check-zipcode [zipcode]
+  (let [[complete numbers chars] (re-matches zipcode-regex (upper-case zipcode))]
+    (if complete
+      [nil (str numbers chars)]
+      [:invalid-zipcode nil])))
+
 (defn do-request [username password urls from to]
-  (loop [[url tail] urls]
-    (if url
-      (let [options   (-> default-options
-                          (add-soap-action "https://ws1.webservices.nl/soap_doclit.php/routePlannerInformation"))
-            body      (xml/emit-str (route-planner-information-request username password from to))
-            response  @(->> (add-body options body)
-                            (http/post url))
-            [err res] (check-response response)]
-        (if (and err (instance? TimeoutException err))
-          (recur tail)
-          [err res]))
-      [:fallback-exhausted nil])))
+  (let [[_ normalized-from] (check-zipcode from)
+        [_ normalized-to]   (check-zipcode to)]
+    (if (and normalized-from normalized-to)
+      (loop [[url tail] urls]
+        (if url
+          (let [options   (-> default-options
+                              (add-soap-action "https://ws1.webservices.nl/soap_doclit.php/routePlannerInformation"))
+                body      (xml/emit-str (route-planner-information-request
+                                         username password normalized-from normalized-to))
+                response  @(->> (add-body options body)
+                                (post url))
+                [err res] (check-response response)]
+            (if (and err (instance? TimeoutException err))
+              (recur tail)
+              [err res]))
+          [:fallback-exhausted nil]))
+      [:invalid-zipcode nil])))
 
 (defn get-result [element]
   (-> element
