@@ -1,2 +1,3 @@
 language: clojure
+sudo: false
 lein: lein2
